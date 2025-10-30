@@ -402,30 +402,70 @@ button, .glass-btn, .glass-card {
 /* =========================
    Homepage Spacing & Layout
 ========================= */
-/* Welcome Header Positioning */
+/* Center content vertically with proper spacing */
+.min-h-screen.bg-gradient-to-br.from-purple-900 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+/* Welcome Header Positioning - Push slightly above center */
 .animate-bounce-slow {
-  margin-bottom: 1.5rem;
-  letter-spacing: 2px;
+  margin-bottom: 2.5rem;
+  letter-spacing: 3px;
+  font-size: 4rem !important;
+  line-height: 1.2;
 }
 
-/* Button Container Spacing */
+/* Subtitle spacing */
+.text-xl.text-purple-200 {
+  margin-bottom: 1rem;
+  font-size: 1.3rem !important;
+}
+
+/* Make buttons much larger and add proper spacing */
 button[class*="bg-gradient"] {
-  margin-bottom: 1.25rem;
+  padding: 1.75rem 2.5rem !important;
+  font-size: 1.25rem !important;
+  min-height: 80px;
+  border-radius: 2rem !important;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
-/* Add more space between buttons on home page */
+/* Icon sizing in buttons */
+button[class*="bg-gradient"] svg {
+  width: 32px !important;
+  height: 32px !important;
+}
+
+/* Button text sizing */
+button[class*="bg-gradient"] span {
+  font-size: 1.3rem !important;
+  font-weight: 600;
+}
+
+/* Space between buttons */
 .space-y-4 > * + * {
-  margin-top: 1.25rem !important;
+  margin-top: 2rem !important;
 }
 
 /* Enhance header section spacing */
 .space-y-8 > * + * {
-  margin-top: 3rem !important;
+  margin-top: 4rem !important;
 }
 
 /* Better spacing for the welcome section */
 .space-y-4 {
-  padding: 0 1rem;
+  padding: 0 1.5rem;
+  width: 100%;
+}
+
+/* Container for buttons */
+.max-w-md {
+  max-width: 500px !important;
 }
 
 /* =========================
