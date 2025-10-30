@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -68,3 +69,17 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+=======
+# 🎮 Game Portal
+
+A beautiful web-based game portal featuring classic games with modern aesthetics.
+
+
+## ✨ Features
+- 🏠 Beautiful home page with gradient designs
+- 👤 Personal bio section
+- 🎮 Game collection (starting with Flappy Bird-inspired game)
+- 💬 Anonymous messaging system
+- 📱 Fully mobile responsive
+- 🎨 Modern glassmorphism UI
+>>>>>>> 2bd6594accb884a10866549eb11dd4e273e8b601
