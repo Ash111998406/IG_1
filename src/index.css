@@ -400,6 +400,35 @@ button, .glass-btn, .glass-card {
 }
 
 /* =========================
+   Homepage Spacing & Layout
+========================= */
+/* Welcome Header Positioning */
+.animate-bounce-slow {
+  margin-bottom: 1.5rem;
+  letter-spacing: 2px;
+}
+
+/* Button Container Spacing */
+button[class*="bg-gradient"] {
+  margin-bottom: 1.25rem;
+}
+
+/* Add more space between buttons on home page */
+.space-y-4 > * + * {
+  margin-top: 1.25rem !important;
+}
+
+/* Enhance header section spacing */
+.space-y-8 > * + * {
+  margin-top: 3rem !important;
+}
+
+/* Better spacing for the welcome section */
+.space-y-4 {
+  padding: 0 1rem;
+}
+
+/* =========================
    Mobile Responsiveness
 ========================= */
 @media (max-width: 768px) {
@@ -420,6 +449,15 @@ button, .glass-btn, .glass-card {
   h1 { font-size: 2.5rem !important; }
   h2 { font-size: 2rem !important; }
   h3 { font-size: 1.5rem !important; }
+  
+  /* More breathing room on mobile */
+  .space-y-4 > * + * {
+    margin-top: 1.5rem !important;
+  }
+  
+  .space-y-8 > * + * {
+    margin-top: 2.5rem !important;
+  }
 }
 
 @media (max-width: 480px) {
