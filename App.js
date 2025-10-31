@@ -49,15 +49,7 @@ const GamePortal = () => {
   );
 
   const BioPage = () => (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 p-4 md:p-8">
-      <button
-        onClick={() => setPage('home')}
-        className="mb-6 flex items-center gap-2 text-white hover:text-purple-200 transition-colors"
-      >
-        <ArrowLeft size={20} />
-        <span>Back</span>
-      </button>
-      
+    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 p-4 md:p-8 pb-24">
       <div className="max-w-3xl mx-auto bg-white/10 backdrop-blur-lg rounded-3xl p-8 shadow-2xl">
         <div className="text-center mb-8">
           <div className="w-32 h-32 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full mx-auto mb-4 flex items-center justify-center">
@@ -101,19 +93,20 @@ const GamePortal = () => {
           </div>
         </div>
       </div>
+      
+      <button
+        onClick={() => setPage('home')}
+        className="fixed bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-white/10 backdrop-blur-md px-6 py-3 rounded-full text-white hover:bg-white/20 transition-all border border-white/20 shadow-lg z-50"
+        style={{ transform: 'translateX(-50%)' }}
+      >
+        <ArrowLeft size={20} />
+        <span>Back to Home</span>
+      </button>
     </div>
   );
 
   const GamesPage = () => (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900 p-4 md:p-8">
-      <button
-        onClick={() => setPage('home')}
-        className="mb-6 flex items-center gap-2 text-white hover:text-blue-200 transition-colors"
-      >
-        <ArrowLeft size={20} />
-        <span>Back</span>
-      </button>
-      
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900 p-4 md:p-8 pb-24">
       <div className="max-w-4xl mx-auto">
         <h2 className="text-5xl font-bold text-white text-center mb-12">Game Collection</h2>
         
@@ -144,6 +137,15 @@ const GamePortal = () => {
           </div>
         </div>
       </div>
+      
+      <button
+        onClick={() => setPage('home')}
+        className="fixed bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-white/10 backdrop-blur-md px-6 py-3 rounded-full text-white hover:bg-white/20 transition-all border border-white/20 shadow-lg z-50"
+        style={{ transform: 'translateX(-50%)' }}
+      >
+        <ArrowLeft size={20} />
+        <span>Back to Home</span>
+      </button>
     </div>
   );
 
@@ -157,23 +159,21 @@ const GamePortal = () => {
           }), true);
           setSubmitted(true);
           setMessage('');
-          setTimeout(() => setSubmitted(false), 3000);
+          setTimeout(() => {
+            setSubmitted(false);
+          }, 3000);
         } catch (error) {
           console.error('Failed to save message:', error);
         }
       }
     };
 
+    const handleAdminClick = () => {
+      setPage('admin-login');
+    };
+
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-900 via-emerald-900 to-teal-900 p-4 md:p-8">
-        <button
-          onClick={() => setPage('home')}
-          className="mb-6 flex items-center gap-2 text-white hover:text-green-200 transition-colors"
-        >
-          <ArrowLeft size={20} />
-          <span>Back</span>
-        </button>
-        
+      <div className="min-h-screen bg-gradient-to-br from-green-900 via-emerald-900 to-teal-900 p-4 md:p-8 pb-24">
         <div className="max-w-2xl mx-auto bg-white/10 backdrop-blur-lg rounded-3xl p-8 shadow-2xl">
           <div className="text-center mb-8">
             <MessageSquare size={64} className="text-white mx-auto mb-4" />
@@ -208,6 +208,169 @@ const GamePortal = () => {
             </div>
           )}
         </div>
+        
+        <button
+          onClick={() => setPage('home')}
+          className="fixed bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-white/10 backdrop-blur-md px-6 py-3 rounded-full text-white hover:bg-white/20 transition-all border border-white/20 shadow-lg z-50"
+          style={{ transform: 'translateX(-50%)' }}
+        >
+          <ArrowLeft size={20} />
+          <span>Back to Home</span>
+        </button>
+        
+        <button
+          onClick={handleAdminClick}
+          className="fixed top-6 right-6 bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-md rounded-2xl p-4 text-white hover:from-purple-500/30 hover:to-pink-500/30 transition-all border border-white/20 shadow-lg group"
+          title="Admin Access"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+              👤
+            </div>
+            <span className="font-semibold text-sm">Admin</span>
+          </div>
+        </button>
+      </div>
+    );
+  };
+
+  const AdminLoginPage = () => {
+    const handleLogin = () => {
+      if (adminPassword === 'admin123') {
+        setIsAdmin(true);
+        setPage('admin');
+      } else {
+        alert('Incorrect password');
+      }
+    };
+
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-900 to-gray-800 p-4 md:p-8 flex items-center justify-center">
+        <div className="max-w-md w-full bg-white/10 backdrop-blur-lg rounded-3xl p-8 shadow-2xl">
+          <h2 className="text-3xl font-bold text-white mb-6 text-center">Admin Login</h2>
+          <input
+            type="password"
+            value={adminPassword}
+            onChange={(e) => setAdminPassword(e.target.value)}
+            onKeyPress={(e) => e.key === 'Enter' && handleLogin()}
+            placeholder="Enter admin password"
+            className="w-full bg-white/10 border-2 border-white/20 rounded-2xl p-4 text-white placeholder-white/50 focus:outline-none focus:border-purple-400 transition-colors mb-4"
+          />
+          <button
+            onClick={handleLogin}
+            className="w-full bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 text-white font-semibold py-3 px-6 rounded-2xl shadow-lg transform hover:scale-105 transition-all duration-300"
+          >
+            Login
+          </button>
+          <button
+            onClick={() => setPage('message')}
+            className="w-full mt-4 text-white/60 hover:text-white transition-colors"
+          >
+            Back
+          </button>
+        </div>
+      </div>
+    );
+  };
+
+  const AdminPage = () => {
+    useEffect(() => {
+      const loadMessages = async () => {
+        try {
+          const result = await window.storage.list('message:', true);
+          if (result && result.keys) {
+            const messagePromises = result.keys.map(async (key) => {
+              try {
+                const data = await window.storage.get(key, true);
+                if (data) {
+                  return {
+                    key,
+                    ...JSON.parse(data.value)
+                  };
+                }
+              } catch (error) {
+                console.error('Error loading message:', error);
+              }
+              return null;
+            });
+            const loadedMessages = await Promise.all(messagePromises);
+            setMessages(loadedMessages.filter(m => m !== null).sort((a, b) => 
+              new Date(b.timestamp) - new Date(a.timestamp)
+            ));
+          }
+        } catch (error) {
+          console.error('Error loading messages:', error);
+        }
+      };
+      if (isAdmin) {
+        loadMessages();
+      }
+    }, [isAdmin]);
+
+    const handleDeleteMessage = async (key) => {
+      try {
+        await window.storage.delete(key, true);
+        setMessages(messages.filter(m => m.key !== key));
+      } catch (error) {
+        console.error('Error deleting message:', error);
+      }
+    };
+
+    const handleLogout = () => {
+      setIsAdmin(false);
+      setAdminPassword('');
+      setPage('home');
+    };
+
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-900 to-gray-800 p-4 md:p-8 pb-24">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-4xl font-bold text-white">Admin Panel</h2>
+            <button
+              onClick={handleLogout}
+              className="bg-red-500/20 hover:bg-red-500/30 text-red-300 px-4 py-2 rounded-lg transition-colors"
+            >
+              Logout
+            </button>
+          </div>
+          
+          <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-6 shadow-2xl">
+            <h3 className="text-2xl font-semibold text-white mb-4">Messages ({messages.length})</h3>
+            
+            {messages.length === 0 ? (
+              <p className="text-white/60 text-center py-8">No messages yet</p>
+            ) : (
+              <div className="space-y-4">
+                {messages.map((msg) => (
+                  <div key={msg.key} className="bg-white/5 rounded-2xl p-4 border border-white/10">
+                    <div className="flex justify-between items-start mb-2">
+                      <p className="text-sm text-white/60">
+                        {new Date(msg.timestamp).toLocaleString()}
+                      </p>
+                      <button
+                        onClick={() => handleDeleteMessage(msg.key)}
+                        className="text-red-400 hover:text-red-300 text-sm"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                    <p className="text-white leading-relaxed">{msg.message}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+        
+        <button
+          onClick={() => setPage('home')}
+          className="fixed bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-white/10 backdrop-blur-md px-6 py-3 rounded-full text-white hover:bg-white/20 transition-all border border-white/20 shadow-lg z-50"
+          style={{ transform: 'translateX(-50%)' }}
+        >
+          <ArrowLeft size={20} />
+          <span>Back to Home</span>
+        </button>
       </div>
     );
   };
@@ -361,15 +524,7 @@ const GamePortal = () => {
     }, [gameStarted, highScore]);
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-cyan-900 via-blue-900 to-indigo-900 p-4 flex flex-col items-center justify-center">
-        <button
-          onClick={() => setPage('games')}
-          className="mb-6 flex items-center gap-2 text-white hover:text-blue-200 transition-colors self-start"
-        >
-          <ArrowLeft size={20} />
-          <span>Back to Games</span>
-        </button>
-
+      <div className="min-h-screen bg-gradient-to-br from-cyan-900 via-blue-900 to-indigo-900 p-4 flex flex-col items-center justify-center pb-24">
         <div className="text-center mb-6">
           <h2 className="text-5xl font-bold text-white mb-2">Flappy Bird</h2>
           <p className="text-blue-200 text-lg">Tap or press Space to fly!</p>
@@ -395,6 +550,15 @@ const GamePortal = () => {
             className="border-4 border-white rounded-3xl shadow-2xl bg-sky-400"
           />
         )}
+        
+        <button
+          onClick={() => setPage('games')}
+          className="fixed bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-white/10 backdrop-blur-md px-6 py-3 rounded-full text-white hover:bg-white/20 transition-all border border-white/20 shadow-lg z-50"
+          style={{ transform: 'translateX(-50%)' }}
+        >
+          <ArrowLeft size={20} />
+          <span>Back to Games</span>
+        </button>
       </div>
     );
   };
@@ -422,6 +586,8 @@ const GamePortal = () => {
       {page === 'bio' && <BioPage />}
       {page === 'games' && <GamesPage />}
       {page === 'message' && <MessagePage />}
+      {page === 'admin-login' && <AdminLoginPage />}
+      {page === 'admin' && <AdminPage />}
       {page === 'flappy' && <FlappyBird />}
     </>
   );
