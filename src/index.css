@@ -400,32 +400,105 @@ button, .glass-btn, .glass-card {
 }
 
 /* =========================
-   Homepage Spacing & Layout
+   Homepage Spacing & Layout Overhaul
 ========================= */
-/* Welcome Header Positioning */
-.animate-bounce-slow {
-  margin-bottom: 1.5rem;
-  letter-spacing: 2px;
+
+/* Force proper vertical centering for homepage */
+.min-h-screen {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 2rem 1rem !important;
 }
 
-/* Button Container Spacing */
-button[class*="bg-gradient"] {
-  margin-bottom: 1.25rem;
+/* Main content container - ensure it's centered */
+.text-center.space-y-8.animate-fade-in {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
 }
 
-/* Add more space between buttons on home page */
-.space-y-4 > * + * {
-  margin-top: 1.25rem !important;
+/* Header section styling */
+.space-y-4:first-child {
+  margin-bottom: 0 !important;
 }
 
-/* Enhance header section spacing */
-.space-y-8 > * + * {
-  margin-top: 3rem !important;
+/* Welcome Header - Larger and more prominent */
+h1.animate-bounce-slow {
+  font-size: 4.5rem !important;
+  letter-spacing: 4px;
+  margin-bottom: 1rem !important;
+  font-weight: 800 !important;
+  line-height: 1.1;
 }
 
-/* Better spacing for the welcome section */
-.space-y-4 {
+/* Subtitle - Better positioning */
+p.text-xl.text-purple-200 {
+  font-size: 1.4rem !important;
+  margin-top: 0.5rem;
+  opacity: 0.95;
+}
+
+/* Button container - Reset default spacing */
+.space-y-4.max-w-md {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  width: 100%;
+  max-width: 550px !important;
   padding: 0 1rem;
+  margin: 0 !important;
+}
+
+/* Override any conflicting spacing */
+.space-y-4 > *,
+.space-y-8 > * {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Button styling - Make them prominent */
+button.w-full.bg-gradient-to-r {
+  padding: 1.8rem 2.5rem !important;
+  font-size: 1.25rem !important;
+  min-height: 85px !important;
+  border-radius: 2rem !important;
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 1rem !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Icon sizing in buttons */
+button.w-full.bg-gradient-to-r svg {
+  width: 30px !important;
+  height: 30px !important;
+  flex-shrink: 0;
+}
+
+/* Button text styling */
+button.w-full.bg-gradient-to-r span {
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  white-space: nowrap;
+}
+
+/* Enhanced hover effects */
+button.w-full.bg-gradient-to-r:hover {
+  transform: translateY(-6px) scale(1.03) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4) !important;
+}
+
+button.w-full.bg-gradient-to-r:active {
+  transform: translateY(-2px) scale(1.01) !important;
 }
 
 /* =========================
@@ -446,17 +519,42 @@ button[class*="bg-gradient"] {
     font-size: 1rem;
   }
   
-  h1 { font-size: 2.5rem !important; }
   h2 { font-size: 2rem !important; }
   h3 { font-size: 1.5rem !important; }
   
-  /* More breathing room on mobile */
-  .space-y-4 > * + * {
-    margin-top: 1.5rem !important;
+  /* Homepage mobile adjustments */
+  h1.animate-bounce-slow {
+    font-size: 3.2rem !important;
+    letter-spacing: 2px;
   }
   
-  .space-y-8 > * + * {
-    margin-top: 2.5rem !important;
+  p.text-xl.text-purple-200 {
+    font-size: 1.2rem !important;
+  }
+  
+  .text-center.space-y-8.animate-fade-in {
+    gap: 2.5rem;
+  }
+  
+  .space-y-4.max-w-md {
+    gap: 1.5rem;
+    max-width: 100% !important;
+    padding: 0 0.75rem;
+  }
+  
+  button.w-full.bg-gradient-to-r {
+    padding: 1.5rem 2rem !important;
+    min-height: 75px !important;
+    font-size: 1.15rem !important;
+  }
+  
+  button.w-full.bg-gradient-to-r svg {
+    width: 26px !important;
+    height: 26px !important;
+  }
+  
+  button.w-full.bg-gradient-to-r span {
+    font-size: 1.15rem !important;
   }
 }
 
@@ -471,8 +569,55 @@ button[class*="bg-gradient"] {
     font-size: 0.95rem;
   }
   
-  h1 { font-size: 2rem !important; }
   h2 { font-size: 1.75rem !important; }
+  
+  /* Small mobile homepage adjustments */
+  h1.animate-bounce-slow {
+    font-size: 2.5rem !important;
+    letter-spacing: 1px;
+  }
+  
+  p.text-xl.text-purple-200 {
+    font-size: 1.05rem !important;
+  }
+  
+  .text-center.space-y-8.animate-fade-in {
+    gap: 2rem;
+    padding: 1rem 0.5rem;
+  }
+  
+  .space-y-4.max-w-md {
+    gap: 1.25rem;
+    padding: 0 0.5rem;
+  }
+  
+  button.w-full.bg-gradient-to-r {
+    padding: 1.25rem 1.5rem !important;
+    min-height: 68px !important;
+    font-size: 1.05rem !important;
+    gap: 0.75rem !important;
+  }
+  
+  button.w-full.bg-gradient-to-r svg {
+    width: 24px !important;
+    height: 24px !important;
+  }
+  
+  button.w-full.bg-gradient-to-r span {
+    font-size: 1.05rem !important;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* Tablet optimization */
+  h1.animate-bounce-slow {
+    font-size: 4rem !important;
+  }
+  
+  button.w-full.bg-gradient-to-r {
+    max-width: 500px;
+    margin: 0 auto;
+  }
 }
 
 /* =========================
