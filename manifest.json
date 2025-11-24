@@ -1,6 +1,6 @@
 {
-  "short_name": "My Links",
-  "name": "My Digital Space",
+  "short_name": "React App",
+  "name": "Create React App Sample",
   "icons": [
     {
       "src": "favicon.ico",
@@ -19,8 +19,7 @@
     }
   ],
   "start_url": ".",
-  "display": "fullscreen",
-  "theme_color": "#0f0c29",
-  "background_color": "#0f0c29",
-  "orientation": "portrait"
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
 }
