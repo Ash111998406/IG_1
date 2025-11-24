@@ -1,15 +1,17 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { Home, User, Gamepad2, MessageSquare, ArrowLeft, Play } from 'lucide-react';
+import FlappyBird from './FlappyBird';
+ import Tetris from './Tetris';
+ import PigRunner from './PigRunner';
+ import Minesweeper from './Minesweeper';
+ import MemoryMatch from './MemoryMatch';
+ import Pong from './Pong';
 
-const GamePortal = () => {
-  const [page, setPage] = useState('home');
-  const [message, setMessage] = useState('');
-  const [submitted, setSubmitted] = useState(false);
-  const [adminPassword, setAdminPassword] = useState('');
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [messages, setMessages] = useState([]);
+const EMAIL_ENDPOINT = "https://formspree.io/f/mpwoyydd";
 
-  const HomePage = () => (
+const HomePage = ({ setPage }) => {
+
+  return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 flex items-center justify-center p-4">
       <div className="text-center space-y-8 animate-fade-in">
         <div className="space-y-4">
@@ -19,7 +21,7 @@ const GamePortal = () => {
           <p className="text-xl text-purple-200">Explore, Play, Connect</p>
         </div>
         
-        <div className="space-y-4 max-w-md mx-auto">
+        <div className="space-y-4 max-w-md mx-auto btn-stack">
           <button
             onClick={() => setPage('bio')}
             className="w-full bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white font-semibold py-4 px-8 rounded-2xl shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3"
@@ -47,521 +49,286 @@ const GamePortal = () => {
       </div>
     </div>
   );
+};
 
-  const BioPage = () => (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 p-4 md:p-8 pb-24">
-      <div className="max-w-3xl mx-auto bg-white/10 backdrop-blur-lg rounded-3xl p-8 shadow-2xl">
-        <div className="text-center mb-8">
-          <div className="w-32 h-32 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full mx-auto mb-4 flex items-center justify-center">
-            <User size={64} className="text-white" />
-          </div>
-          <h2 className="text-4xl font-bold text-white mb-2">About Me</h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-purple-400 to-pink-400 mx-auto"></div>
+const BioPage = ({ onBack }) => (
+  <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 p-4 md:p-8 pb-24">
+    <div className="max-w-3xl mx-auto glass-card fade-in bio-content">
+      <div className="text-center bio-header">
+        <div className="w-32 h-32 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full mx-auto flex items-center justify-center float">
+          <User size={64} className="text-white" />
         </div>
+        <h2 className="text-4xl font-bold text-white">About Me</h2>
+        <div className="w-24 h-1 bg-gradient-to-r from-purple-400 to-pink-400 mx-auto"></div>
+      </div>
+      
+      <div className="bio-text">
+        <p className="text-lg bio-intro">
+            Hey there! I’m a developer who loves building fun, interactive experiences.
+            This space is my little digital playground.
+        </p>
         
-        <div className="space-y-6 text-white/90 leading-relaxed">
-          <p className="text-lg">
-            Hello! I'm a passionate developer and gamer who loves creating interactive experiences. 
-            This portal is my digital playground where I share my creations with the world.
+        <div className="glass-card bio-section">
+          <h3 className="text-2xl font-semibold text-purple-300">My Journey</h3>
+          <p>
+            I love staying active, whether it’s hitting the gym, running, or trying new workouts.
+            For me, it’s not just about fitness; it’s about building discipline and feeling alive.
           </p>
-          
-          <div className="bg-white/5 rounded-2xl p-6">
-            <h3 className="text-2xl font-semibold text-purple-300 mb-3">My Journey</h3>
-            <p>
-              My journey into game development started with a simple curiosity about how games work. 
-              Over time, I've learned to create fun, engaging experiences that bring joy to players. 
-              This collection represents my ongoing adventure in coding and creativity.
-            </p>
-          </div>
-          
-          <div className="bg-white/5 rounded-2xl p-6">
-            <h3 className="text-2xl font-semibold text-blue-300 mb-3">What I Do</h3>
-            <p>
-              I love bringing classic games to life with modern web technologies. Each game here 
-              is crafted with care, optimized for mobile play, and designed to provide instant fun 
-              without any downloads or installations.
-            </p>
-          </div>
-          
-          <div className="bg-white/5 rounded-2xl p-6">
-            <h3 className="text-2xl font-semibold text-green-300 mb-3">My Vision</h3>
-            <p>
-              I believe games should be accessible to everyone. That's why I'm building this 
-              collection of browser-based games that anyone can enjoy, anywhere, anytime. More 
-              games are coming soon, so stay tuned!
-            </p>
-          </div>
         </div>
-      </div>
-      
-      <button
-        onClick={() => setPage('home')}
-        className="fixed bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-white/10 backdrop-blur-md px-6 py-3 rounded-full text-white hover:bg-white/20 transition-all border border-white/20 shadow-lg z-50"
-        style={{ transform: 'translateX(-50%)' }}
-      >
-        <ArrowLeft size={20} />
-        <span>Back to Home</span>
-      </button>
-    </div>
-  );
-
-  const GamesPage = () => (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900 p-4 md:p-8 pb-24">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-5xl font-bold text-white text-center mb-12">Game Collection</h2>
         
-        <div className="grid gap-6">
-          <div
-            onClick={() => setPage('flappy')}
-            className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 shadow-2xl hover:bg-white/20 transition-all duration-300 cursor-pointer transform hover:scale-105"
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex-1">
-                <h3 className="text-3xl font-bold text-white mb-3">Flappy Bird</h3>
-                <p className="text-purple-200 text-lg mb-4">
-                  The classic game that took the world by storm! Tap to flap and navigate through pipes.
-                </p>
-                <div className="flex gap-2 flex-wrap">
-                  <span className="bg-blue-500/50 text-white px-4 py-1 rounded-full text-sm">Arcade</span>
-                  <span className="bg-purple-500/50 text-white px-4 py-1 rounded-full text-sm">Classic</span>
-                  <span className="bg-pink-500/50 text-white px-4 py-1 rounded-full text-sm">Addictive</span>
-                </div>
-              </div>
-              <Play size={48} className="text-white ml-4" />
-            </div>
-          </div>
-          
-          <div className="bg-white/5 backdrop-blur-lg rounded-3xl p-8 text-center border-2 border-dashed border-white/20">
-            <Gamepad2 size={48} className="text-white/40 mx-auto mb-4" />
-            <p className="text-white/60 text-lg">More games coming soon...</p>
-          </div>
+        <div className="glass-card bio-section">
+          <h3 className="text-2xl font-semibold text-blue-300">What I Do</h3>
+          <p>
+            --------------
+          </p>
+        </div>
+        
+        <div className="glass-card bio-section">
+          <h3 className="text-2xl font-semibold text-green-300">My Vision</h3>
+          <p>
+            Drift with the clouds
+          </p>
         </div>
       </div>
-      
-      <button
-        onClick={() => setPage('home')}
-        className="fixed bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-white/10 backdrop-blur-md px-6 py-3 rounded-full text-white hover:bg-white/20 transition-all border border-white/20 shadow-lg z-50"
-        style={{ transform: 'translateX(-50%)' }}
-      >
-        <ArrowLeft size={20} />
-        <span>Back to Home</span>
-      </button>
     </div>
-  );
+    
+    <button
+      onClick={onBack}
+      className="fixed bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-white/10 backdrop-blur-md px-6 py-3 rounded-full text-white hover:bg-white/20 transition-all border border-white/20 shadow-lg z-50"
+    >
+      <ArrowLeft size={20} />
+      <span>Back to Home</span>
+    </button>
+  </div>
+);
 
-  const MessagePage = () => {
-    const handleSubmit = async () => {
-      if (message.trim()) {
-        try {
-          await window.storage.set(`message:${Date.now()}`, JSON.stringify({
-            message: message,
-            timestamp: new Date().toISOString()
-          }), true);
-          setSubmitted(true);
-          setMessage('');
-          setTimeout(() => {
-            setSubmitted(false);
-          }, 3000);
-        } catch (error) {
-          console.error('Failed to save message:', error);
-        }
-      }
-    };
-
-    const handleAdminClick = () => {
-      setPage('admin-login');
-    };
-
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-green-900 via-emerald-900 to-teal-900 p-4 md:p-8 pb-24">
-        <div className="max-w-2xl mx-auto bg-white/10 backdrop-blur-lg rounded-3xl p-8 shadow-2xl">
-          <div className="text-center mb-8">
-            <MessageSquare size={64} className="text-white mx-auto mb-4" />
-            <h2 className="text-4xl font-bold text-white mb-2">Send Anonymous Message</h2>
-            <p className="text-green-200">Your identity remains completely private</p>
-          </div>
-          
-          {submitted ? (
-            <div className="bg-green-500/20 border-2 border-green-400 rounded-2xl p-6 text-center">
-              <p className="text-white text-xl font-semibold">✨ Message sent successfully! ✨</p>
-              <p className="text-green-200 mt-2">Thank you for sharing your thoughts</p>
+const GamesPage = ({ onBack, onSelectGame }) => (
+  <div className="min-h-screen bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900 p-4 md:p-8 pb-24">
+    <div className="max-w-4xl mx-auto games-content">
+      <h2 className="text-5xl font-bold text-white text-center glow-text games-title">Game Collection</h2>
+      
+      <div className="games-grid">
+        <div
+          onClick={() => onSelectGame('flappy')}
+          className="glass-card cursor-pointer fade-in game-card"
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex-1">
+              <h3 className="text-3xl font-bold text-white game-title">Flappy Bird</h3>
+              <p className="text-purple-200 text-lg game-description">
+                The classic game that took the world by storm! Tap to flap and navigate through pipes.
+              </p>
+              <div className="flex gap-2 flex-wrap game-tags">
+                <span className="bg-blue-500/50 text-white px-4 py-1 rounded-full text-sm">Arcade</span>
+                <span className="bg-purple-500/50 text-white px-4 py-1 rounded-full text-sm">Classic</span>
+                <span className="bg-pink-500/50 text-white px-4 py-1 rounded-full text-sm">Addictive</span>
+              </div>
             </div>
-          ) : (
-            <div className="space-y-6">
+            <Play size={48} className="text-white ml-4 float" />
+          </div>
+        </div>
+
+    {/* Pig Runner */}
+    <div onClick={() => onSelectGame('pig')} className="glass-card cursor-pointer fade-in game-card">
+      <div className="flex items-center justify-between">
+        <div className="flex-1">
+          <h3 className="text-3xl font-bold text-white game-title">Pig Runner</h3>
+          <p className="text-purple-200 text-lg game-description">Jump over cacti. Faster over time.</p>
+          <div className="flex gap-2 flex-wrap game-tags">
+            <span className="bg-pink-500/50 text-white px-4 py-1 rounded-full text-sm">Runner</span>
+            <span className="bg-yellow-500/50 text-white px-4 py-1 rounded-full text-sm">Arcade</span>
+          </div>
+        </div>
+        <Play size={48} className="text-white ml-4 float" />
+      </div>
+    </div>
+
+    {/* Tetris */}
+    <div onClick={() => onSelectGame('tetris')} className="glass-card cursor-pointer fade-in game-card">
+      <div className="flex items-center justify-between">
+        <div className="flex-1">
+          <h3 className="text-3xl font-bold text-white game-title">Tetris</h3>
+          <p className="text-purple-200 text-lg game-description">Stack and clear lines. Swipe/keys supported.</p>
+          <div className="flex gap-2 flex-wrap game-tags">
+            <span className="bg-blue-500/50 text-white px-4 py-1 rounded-full text-sm">Puzzle</span>
+            <span className="bg-indigo-500/50 text-white px-4 py-1 rounded-full text-sm">Classic</span>
+          </div>
+        </div>
+        <Play size={48} className="text-white ml-4 float" />
+      </div>
+    </div>
+
+    {/* Minesweeper */}
+    <div onClick={() => onSelectGame('mines')} className="glass-card cursor-pointer fade-in game-card">
+      <div className="flex items-center justify-between">
+        <div className="flex-1">
+          <h3 className="text-3xl font-bold text-white game-title">Minesweeper</h3>
+          <p className="text-purple-200 text-lg game-description">Avoid the bombs, clear the field.</p>
+          <div className="flex gap-2 flex-wrap game-tags">
+            <span className="bg-green-500/50 text-white px-4 py-1 rounded-full text-sm">Logic</span>
+            <span className="bg-gray-500/50 text-white px-4 py-1 rounded-full text-sm">Classic</span>
+          </div>
+        </div>
+        <Play size={48} className="text-white ml-4 float" />
+      </div>
+    </div>
+    {/* Memory Match */}
+    <div onClick={() => onSelectGame('memory')} className="glass-card cursor-pointer fade-in game-card">
+      <div className="flex items-center justify-between">
+        <div className="flex-1">
+          <h3 className="text-3xl font-bold text-white game-title">Memory Match</h3>
+          <p className="text-purple-200 text-lg game-description">Flip and find all pairs.</p>
+          <div className="flex gap-2 flex-wrap game-tags">
+            <span className="bg-purple-500/50 text-white px-4 py-1 rounded-full text-sm">Casual</span>
+            <span className="bg-pink-500/50 text-white px-4 py-1 rounded-full text-sm">Family</span>
+          </div>
+        </div>
+        <Play size={48} className="text-white ml-4 float" />
+      </div>
+    </div>
+    {/* Pong */}
+    <div onClick={() => onSelectGame('pong')} className="glass-card cursor-pointer fade-in game-card">
+      <div className="flex items-center justify-between">
+        <div className="flex-1">
+          <h3 className="text-3xl font-bold text-white game-title">Pong</h3>
+          <p className="text-purple-200 text-lg game-description">Beat the AI paddle. Swipe or keys.</p>
+          <div className="flex gap-2 flex-wrap game-tags">
+            <span className="bg-emerald-500/50 text-white px-4 py-1 rounded-full text-sm">Arcade</span>
+            <span className="bg-blue-500/50 text-white px-4 py-1 rounded-full text-sm">Classic</span>
+          </div>
+        </div>
+        <Play size={48} className="text-white ml-4 float" />
+      </div>
+    </div>
+
+        <div className="glass-card text-center border-2 border-dashed border-white/20 fade-in coming-soon">
+          <Gamepad2 size={48} className="text-white/40 mx-auto wiggle" />
+          <p className="text-white/60 text-lg">More games coming soon...</p>
+        </div>
+      </div>
+    </div>
+    
+    <button
+      onClick={onBack}
+      className="fixed bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-white/10 backdrop-blur-md px-6 py-3 rounded-full text-white hover:bg-white/20 transition-all border border-white/20 shadow-lg z-50"
+    >
+      <ArrowLeft size={20} />
+      <span>Back to Home</span>
+    </button>
+  </div>
+);
+
+const MessagePage = ({ onBack }) => {
+  const [message, setMessage] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+
+  const handleSubmit = async () => {
+    if (!message.trim() || sending) {
+      return;
+    }
+
+    setSending(true);
+    
+    try {
+      const response = await fetch(EMAIL_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ message: message.trim() })
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        setMessage('');
+        setTimeout(() => {
+          setSubmitted(false);
+        }, 4000);
+      } else {
+        alert('Failed to send message. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error sending message:', error);
+      alert('Failed to send message. Please check your internet connection.');
+    } finally {
+      setSending(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-green-900 via-emerald-900 to-teal-900 p-4 md:p-8 pb-24">
+      <div className="max-w-2xl mx-auto glass-card fade-in message-container">
+        <div className="text-center message-header">
+          <MessageSquare size={64} className="text-white mx-auto float" />
+          <h2 className="text-4xl font-bold text-white">Send Anonymous Message</h2>
+          <p className="text-green-200">Your identity remains completely private</p>
+        </div>
+        
+        {submitted ? (
+          <div className="bg-green-500/20 border-2 border-green-400 rounded-2xl p-6 text-center pulse-glow success-message">
+            <p className="text-white text-xl font-semibold">✨ Message sent successfully! ✨</p>
+            <p className="text-green-200 mt-2">Thank you for sharing your thoughts</p>
+          </div>
+        ) : (
+          <div className="message-form">
+            <div className="textarea-wrapper">
               <textarea
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="Write your anonymous message here..."
-                className="w-full h-48 bg-white/10 border-2 border-white/20 rounded-2xl p-4 text-white placeholder-white/50 focus:outline-none focus:border-green-400 transition-colors resize-none text-lg"
+                rows={8}
+                disabled={sending}
+                style={{
+                  width: '100%',
+                  padding: '16px 20px',
+                  backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                  border: '2px solid rgba(255, 255, 255, 0.15)',
+                  borderRadius: '16px',
+                  color: 'white',
+                  fontFamily: 'Poppins, sans-serif',
+                  fontSize: '16px',
+                  lineHeight: '1.6',
+                  resize: 'vertical',
+                  outline: 'none',
+                  transition: 'all 0.3s ease'
+                }}
               />
-              
-              <button
-                onClick={handleSubmit}
-                className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-semibold py-4 px-8 rounded-2xl shadow-lg transform hover:scale-105 transition-all duration-300 text-lg"
-              >
-                Send Message
-              </button>
-              
-              <p className="text-white/60 text-sm text-center">
-                Your message will be sent anonymously. No personal information is collected.
-              </p>
             </div>
-          )}
-        </div>
-        
-        <button
-          onClick={() => setPage('home')}
-          className="fixed bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-white/10 backdrop-blur-md px-6 py-3 rounded-full text-white hover:bg-white/20 transition-all border border-white/20 shadow-lg z-50"
-          style={{ transform: 'translateX(-50%)' }}
-        >
-          <ArrowLeft size={20} />
-          <span>Back to Home</span>
-        </button>
-        
-        <button
-          onClick={handleAdminClick}
-          className="fixed top-6 right-6 bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-md rounded-2xl p-4 text-white hover:from-purple-500/30 hover:to-pink-500/30 transition-all border border-white/20 shadow-lg group"
-          title="Admin Access"
-        >
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
-              👤
-            </div>
-            <span className="font-semibold text-sm">Admin</span>
-          </div>
-        </button>
-      </div>
-    );
-  };
-
-  const AdminLoginPage = () => {
-    const handleLogin = () => {
-      if (adminPassword === 'admin123') {
-        setIsAdmin(true);
-        setPage('admin');
-      } else {
-        alert('Incorrect password');
-      }
-    };
-
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-900 to-gray-800 p-4 md:p-8 flex items-center justify-center">
-        <div className="max-w-md w-full bg-white/10 backdrop-blur-lg rounded-3xl p-8 shadow-2xl">
-          <h2 className="text-3xl font-bold text-white mb-6 text-center">Admin Login</h2>
-          <input
-            type="password"
-            value={adminPassword}
-            onChange={(e) => setAdminPassword(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && handleLogin()}
-            placeholder="Enter admin password"
-            className="w-full bg-white/10 border-2 border-white/20 rounded-2xl p-4 text-white placeholder-white/50 focus:outline-none focus:border-purple-400 transition-colors mb-4"
-          />
-          <button
-            onClick={handleLogin}
-            className="w-full bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 text-white font-semibold py-3 px-6 rounded-2xl shadow-lg transform hover:scale-105 transition-all duration-300"
-          >
-            Login
-          </button>
-          <button
-            onClick={() => setPage('message')}
-            className="w-full mt-4 text-white/60 hover:text-white transition-colors"
-          >
-            Back
-          </button>
-        </div>
-      </div>
-    );
-  };
-
-  const AdminPage = () => {
-    useEffect(() => {
-      const loadMessages = async () => {
-        try {
-          const result = await window.storage.list('message:', true);
-          if (result && result.keys) {
-            const messagePromises = result.keys.map(async (key) => {
-              try {
-                const data = await window.storage.get(key, true);
-                if (data) {
-                  return {
-                    key,
-                    ...JSON.parse(data.value)
-                  };
-                }
-              } catch (error) {
-                console.error('Error loading message:', error);
-              }
-              return null;
-            });
-            const loadedMessages = await Promise.all(messagePromises);
-            setMessages(loadedMessages.filter(m => m !== null).sort((a, b) => 
-              new Date(b.timestamp) - new Date(a.timestamp)
-            ));
-          }
-        } catch (error) {
-          console.error('Error loading messages:', error);
-        }
-      };
-      if (isAdmin) {
-        loadMessages();
-      }
-    }, [isAdmin]);
-
-    const handleDeleteMessage = async (key) => {
-      try {
-        await window.storage.delete(key, true);
-        setMessages(messages.filter(m => m.key !== key));
-      } catch (error) {
-        console.error('Error deleting message:', error);
-      }
-    };
-
-    const handleLogout = () => {
-      setIsAdmin(false);
-      setAdminPassword('');
-      setPage('home');
-    };
-
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-900 to-gray-800 p-4 md:p-8 pb-24">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-4xl font-bold text-white">Admin Panel</h2>
-            <button
-              onClick={handleLogout}
-              className="bg-red-500/20 hover:bg-red-500/30 text-red-300 px-4 py-2 rounded-lg transition-colors"
-            >
-              Logout
-            </button>
-          </div>
-          
-          <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-6 shadow-2xl">
-            <h3 className="text-2xl font-semibold text-white mb-4">Messages ({messages.length})</h3>
             
-            {messages.length === 0 ? (
-              <p className="text-white/60 text-center py-8">No messages yet</p>
-            ) : (
-              <div className="space-y-4">
-                {messages.map((msg) => (
-                  <div key={msg.key} className="bg-white/5 rounded-2xl p-4 border border-white/10">
-                    <div className="flex justify-between items-start mb-2">
-                      <p className="text-sm text-white/60">
-                        {new Date(msg.timestamp).toLocaleString()}
-                      </p>
-                      <button
-                        onClick={() => handleDeleteMessage(msg.key)}
-                        className="text-red-400 hover:text-red-300 text-sm"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                    <p className="text-white leading-relaxed">{msg.message}</p>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-        
-        <button
-          onClick={() => setPage('home')}
-          className="fixed bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-white/10 backdrop-blur-md px-6 py-3 rounded-full text-white hover:bg-white/20 transition-all border border-white/20 shadow-lg z-50"
-          style={{ transform: 'translateX(-50%)' }}
-        >
-          <ArrowLeft size={20} />
-          <span>Back to Home</span>
-        </button>
-      </div>
-    );
-  };
-
-  const FlappyBird = () => {
-    const canvasRef = useRef(null);
-    const [gameStarted, setGameStarted] = useState(false);
-    const [score, setScore] = useState(0);
-    const [highScore, setHighScore] = useState(0);
-    const gameStateRef = useRef({
-      bird: { x: 50, y: 200, velocity: 0 },
-      pipes: [],
-      score: 0,
-      gameOver: false,
-      frame: 0
-    });
-
-    useEffect(() => {
-      const loadHighScore = async () => {
-        try {
-          const result = await window.storage.get('flappy-highscore');
-          if (result) {
-            setHighScore(parseInt(result.value));
-          }
-        } catch (error) {
-          console.log('No high score found');
-        }
-      };
-      loadHighScore();
-    }, []);
-
-    useEffect(() => {
-      if (!gameStarted) return;
-
-      const canvas = canvasRef.current;
-      const ctx = canvas.getContext('2d');
-      const game = gameStateRef.current;
-
-      const GRAVITY = 0.5;
-      const JUMP_STRENGTH = -8;
-      const PIPE_WIDTH = 60;
-      const PIPE_GAP = 150;
-      const PIPE_SPEED = 2;
-
-      game.bird = { x: 50, y: 200, velocity: 0 };
-      game.pipes = [];
-      game.score = 0;
-      game.gameOver = false;
-      game.frame = 0;
-
-      const jump = () => {
-        if (!game.gameOver) {
-          game.bird.velocity = JUMP_STRENGTH;
-        }
-      };
-
-      const handleClick = () => jump();
-      const handleKeyPress = (e) => {
-        if (e.code === 'Space') jump();
-      };
-
-      canvas.addEventListener('click', handleClick);
-      window.addEventListener('keydown', handleKeyPress);
-
-      const gameLoop = () => {
-        if (game.gameOver) return;
-
-        game.frame++;
-        ctx.fillStyle = '#4facfe';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        game.bird.velocity += GRAVITY;
-        game.bird.y += game.bird.velocity;
-
-        ctx.fillStyle = '#FFD700';
-        ctx.beginPath();
-        ctx.arc(game.bird.x, game.bird.y, 15, 0, Math.PI * 2);
-        ctx.fill();
-
-        if (game.frame % 90 === 0) {
-          const pipeY = Math.random() * (canvas.height - PIPE_GAP - 100) + 50;
-          game.pipes.push({ x: canvas.width, y: pipeY, scored: false });
-        }
-
-        ctx.fillStyle = '#2ecc71';
-        for (let i = game.pipes.length - 1; i >= 0; i--) {
-          const pipe = game.pipes[i];
-          pipe.x -= PIPE_SPEED;
-
-          ctx.fillRect(pipe.x, 0, PIPE_WIDTH, pipe.y);
-          ctx.fillRect(pipe.x, pipe.y + PIPE_GAP, PIPE_WIDTH, canvas.height);
-
-          if (pipe.x + PIPE_WIDTH < 0) {
-            game.pipes.splice(i, 1);
-          }
-
-          if (!pipe.scored && pipe.x + PIPE_WIDTH < game.bird.x) {
-            game.score++;
-            setScore(game.score);
-            pipe.scored = true;
-          }
-
-          if (
-            game.bird.x + 15 > pipe.x &&
-            game.bird.x - 15 < pipe.x + PIPE_WIDTH &&
-            (game.bird.y - 15 < pipe.y || game.bird.y + 15 > pipe.y + PIPE_GAP)
-          ) {
-            game.gameOver = true;
-          }
-        }
-
-        if (game.bird.y + 15 > canvas.height || game.bird.y - 15 < 0) {
-          game.gameOver = true;
-        }
-
-        ctx.fillStyle = 'white';
-        ctx.font = 'bold 32px Arial';
-        ctx.fillText(game.score, 20, 50);
-
-        if (game.gameOver) {
-          if (game.score > highScore) {
-            setHighScore(game.score);
-            window.storage.set('flappy-highscore', game.score.toString()).catch(console.error);
-          }
-          ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-          ctx.fillRect(0, 0, canvas.width, canvas.height);
-          ctx.fillStyle = 'white';
-          ctx.font = 'bold 48px Arial';
-          ctx.textAlign = 'center';
-          ctx.fillText('Game Over!', canvas.width / 2, canvas.height / 2 - 40);
-          ctx.font = 'bold 32px Arial';
-          ctx.fillText(`Score: ${game.score}`, canvas.width / 2, canvas.height / 2 + 10);
-          ctx.fillText(`High Score: ${Math.max(highScore, game.score)}`, canvas.width / 2, canvas.height / 2 + 50);
-          ctx.font = '24px Arial';
-          ctx.fillText('Click or press Space to restart', canvas.width / 2, canvas.height / 2 + 100);
-          canvas.removeEventListener('click', handleClick);
-          window.removeEventListener('keydown', handleKeyPress);
-          canvas.addEventListener('click', () => setGameStarted(false));
-          return;
-        }
-
-        requestAnimationFrame(gameLoop);
-      };
-
-      gameLoop();
-
-      return () => {
-        canvas.removeEventListener('click', handleClick);
-        window.removeEventListener('keydown', handleKeyPress);
-      };
-    }, [gameStarted, highScore]);
-
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-cyan-900 via-blue-900 to-indigo-900 p-4 flex flex-col items-center justify-center pb-24">
-        <div className="text-center mb-6">
-          <h2 className="text-5xl font-bold text-white mb-2">Flappy Bird</h2>
-          <p className="text-blue-200 text-lg">Tap or press Space to fly!</p>
-          {highScore > 0 && (
-            <p className="text-yellow-300 text-xl mt-2">High Score: {highScore}</p>
-          )}
-        </div>
-
-        {!gameStarted ? (
-          <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-12 text-center">
             <button
-              onClick={() => setGameStarted(true)}
-              className="bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white font-bold py-6 px-12 rounded-2xl shadow-2xl transform hover:scale-110 transition-all duration-300 text-2xl"
+              onClick={handleSubmit}
+              disabled={sending || !message.trim()}
+              className="glass-btn btn-green w-full submit-button"
+              style={{
+                opacity: (sending || !message.trim()) ? 0.5 : 1,
+                cursor: (sending || !message.trim()) ? 'not-allowed' : 'pointer'
+              }}
             >
-              Start Game
+              {sending ? 'Sending...' : 'Send Message'}
             </button>
+            
+            <p className="text-white/60 text-sm text-center privacy-note">
+              Your message will be sent anonymously. No personal information is collected.
+            </p>
           </div>
-        ) : (
-          <canvas
-            ref={canvasRef}
-            width={400}
-            height={600}
-            className="border-4 border-white rounded-3xl shadow-2xl bg-sky-400"
-          />
         )}
-        
-        <button
-          onClick={() => setPage('games')}
-          className="fixed bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-white/10 backdrop-blur-md px-6 py-3 rounded-full text-white hover:bg-white/20 transition-all border border-white/20 shadow-lg z-50"
-          style={{ transform: 'translateX(-50%)' }}
-        >
-          <ArrowLeft size={20} />
-          <span>Back to Games</span>
-        </button>
       </div>
-    );
-  };
+      
+      <button
+        onClick={onBack}
+        className="fixed bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-white/10 backdrop-blur-md px-6 py-3 rounded-full text-white hover:bg-white/20 transition-all border border-white/20 shadow-lg z-50"
+      >
+        <ArrowLeft size={20} />
+        <span>Back to Home</span>
+      </button>
+    </div>
+  );
+};
+
+const GamePortal = () => {
+  const [page, setPage] = useState('home');
 
   return (
     <>
@@ -580,15 +347,123 @@ const GamePortal = () => {
         .animate-bounce-slow {
           animation: bounce-slow 2s ease-in-out infinite;
         }
+        
+        /* Bio Page Spacing */
+        .bio-content {
+          padding: 3rem 2rem;
+        }
+        .bio-header {
+          margin-bottom: 3rem;
+        }
+        .bio-header > * {
+          margin-bottom: 1.5rem;
+        }
+        .bio-text {
+          display: flex;
+          flex-direction: column;
+          gap: 2.5rem;
+        }
+        .bio-intro {
+          margin-bottom: 1rem;
+        }
+        .bio-section {
+          padding: 2rem;
+        }
+        .bio-section h3 {
+          margin-bottom: 1.5rem;
+        }
+        
+        /* Games Page Spacing */
+        .games-content {
+          padding: 2rem 0;
+        }
+        .games-title {
+          margin-bottom: 3rem;
+        }
+        .games-grid {
+          display: flex;
+          flex-direction: column;
+          gap: 2rem;
+        }
+        .game-card {
+          padding: 2rem;
+        }
+        .game-title {
+          margin-bottom: 1.5rem;
+        }
+        .game-description {
+          margin-bottom: 1.5rem;
+        }
+        .game-tags {
+          margin-top: 1rem;
+        }
+        .coming-soon {
+          padding: 3rem 2rem;
+        }
+        .coming-soon > * {
+          margin-bottom: 1.5rem;
+        }
+        
+        /* Message Page Spacing */
+        .message-container {
+          padding: 3rem 2rem;
+        }
+        .message-header {
+          margin-bottom: 3rem;
+        }
+        .message-header > * {
+          margin-bottom: 1.5rem;
+        }
+        .message-form {
+          display: flex;
+          flex-direction: column;
+          gap: 2rem;
+        }
+        .textarea-wrapper {
+          margin-bottom: 0.5rem;
+        }
+        .submit-button {
+          margin-bottom: 0.5rem;
+        }
+        .success-message {
+          padding: 2rem;
+        }
+        .success-message p:first-child {
+          margin-bottom: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+          .bio-content {
+            padding: 2rem 1.5rem;
+          }
+          .bio-header {
+            margin-bottom: 2.5rem;
+          }
+          .bio-text {
+            gap: 2rem;
+          }
+          .bio-section {
+            padding: 1.5rem;
+          }
+          .message-container {
+            padding: 2rem 1.5rem;
+          }
+          .message-header {
+            margin-bottom: 2.5rem;
+          }
+        }
       `}</style>
       
-      {page === 'home' && <HomePage />}
-      {page === 'bio' && <BioPage />}
-      {page === 'games' && <GamesPage />}
-      {page === 'message' && <MessagePage />}
-      {page === 'admin-login' && <AdminLoginPage />}
-      {page === 'admin' && <AdminPage />}
-      {page === 'flappy' && <FlappyBird />}
+      {page === 'home' && <HomePage setPage={setPage} />}
+      {page === 'bio' && <BioPage onBack={() => setPage('home')} />}
+      {page === 'games' && <GamesPage onBack={() => setPage('home')} onSelectGame={(key) => setPage(key)} />}
+      {page === 'message' && <MessagePage onBack={() => setPage('home')} />}
+      {page === 'flappy' && <FlappyBird onBack={() => setPage('games')} />}
+      {page === 'pig' && <PigRunner onBack={() => setPage('games')} />}
+      {page === 'tetris' && <Tetris onBack={() => setPage('games')} />}
+      {page === 'mines' && <Minesweeper onBack={() => setPage('games')} />}
+      {page === 'memory' && <MemoryMatch onBack={() => setPage('games')} />}
+      {page === 'pong' && <Pong onBack={() => setPage('games')} />}
     </>
   );
 };

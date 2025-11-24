@@ -1,85 +1,51 @@
-<<<<<<< HEAD
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-=======
 # 🎮 Game Portal
 
-A beautiful web-based game portal featuring classic games with modern aesthetics.
-
+A beautiful web-based game portal featuring classic games reimagined with modern aesthetics.
 
 ## ✨ Features
 - 🏠 Beautiful home page with gradient designs
 - 👤 Personal bio section
-- 🎮 Game collection (starting with Flappy Bird-inspired game)
+- 🎮 Collection of few classic games
 - 💬 Anonymous messaging system
 - 📱 Fully mobile responsive
 - 🎨 Modern glassmorphism UI
->>>>>>> 2bd6594accb884a10866549eb11dd4e273e8b601
+
+## 🎯 Games Included
+
+### 1. Flappy Bird Clone
+Navigate through pipes in this challenging arcade game inspired by Dong Nguyen's classic.
+
+### 2. Memory Match
+Test your memory with this classic card-matching game.
+
+### 3. Minesweeper
+Clear the board without hitting mines in this logic puzzle classic.
+
+### 4. Pig Runner
+An endless runner inspired by Chrome's T-Rex game, but with a cute pig character!
+
+### 5. Pong
+The classic arcade game that started it all - bounce the ball back and forth.
+
+### 6. Tetris
+Arrange falling blocks in this legendary puzzle game.
+
+
+## 📜 Credits
+
+All games are reimplementations with original code. See [CREDITS.md](CREDITS.md) for detailed attribution to original game creators.
+
+**Developer**: Ash111998406  
+**License**: MIT License
+
+## ⚖️ Legal
+
+This is a fan-made project for educational purposes. All game implementations use original code with no copyrighted assets from original games. Game mechanics and concepts are inspired by their respective classics. Not affiliated with or endorsed by the original creators.
+
+## 📄 License
+
+This project is open source under the [MIT License](LICENSE). See LICENSE file for details.
+
+## 🤝 Contributing
+
+Feel free to fork, modify, and contribute! This is an open-source educational project.

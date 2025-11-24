@@ -7,12 +7,34 @@
 
 ## Game Inspirations
 
+All games in this portal are reimplementations. The code is original, but the game concepts and mechanics are inspired by classic games.
+
 ### Flappy Bird
-This project includes a game inspired by Flappy Bird, originally created by Dong Nguyen (2013).
-- Our implementation is **original code** written from scratch
-- Uses **original graphics** (simple geometric shapes)
-- Gameplay mechanics are inspired by the classic concept
-- **No original assets** from the original game are used
+- **Original Creator**: Dong Nguyen (2013)
+- **Our Implementation**: Original code with custom graphics
+- **Note**: Gameplay mechanics inspired by the classic concept
+
+### Memory Match
+- **Original Concept**: Traditional card matching game (public domain)
+- **Our Implementation**: Original code implementation
+
+### Minesweeper
+- **Original Creators**: Robert Donner & Curt Johnson
+- **Popularized by**: Microsoft Windows (1990)
+- **Our Implementation**: Original code implementation
+
+### Pig Runner (Chrome Dino Game)
+- **Original Creator**: Google Chrome Team (Chrome offline game)
+- **Original Name**: T-Rex Runner / Chrome Dino
+- **Our Implementation**: Custom implementation with pig character instead of dinosaur
+
+### Pong
+- **Original Creator**: Atari / Allan Alcorn (1972)
+- **Our Implementation**: Original code implementation of classic mechanics
+
+### Tetris
+- **Original Creator**: Alexey Pajitnov (1985)
+- **Our Implementation**: Original code implementation of classic gameplay
 
 ## Third-Party Libraries
 - **React** - MIT License (https://reactjs.org/)
@@ -27,5 +49,4 @@ This project is open source under the MIT License. Feel free to:
 - ✅ Fork and contribute
 
 ## Disclaimer
-All game concepts are used for educational and entertainment purposes.
-No copyright infringement intended.
+All game concepts are used for educational and entertainment purposes. These are fan-made implementations with original code. No original assets or copyrighted materials from the original games are used. Not affiliated with or endorsed by the original creators.

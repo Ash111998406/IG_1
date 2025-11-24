@@ -271,42 +271,6 @@ body::after {
 }
 
 /* =========================
-   Mobile-Optimized Inputs
-========================= */
-textarea, input {
-  font-family: 'Poppins', sans-serif;
-  font-size: 1rem;
-  width: 100%;
-  padding: 1rem 1.5rem;
-  background: rgba(255, 255, 255, 0.08);
-  border: 2px solid rgba(255, 255, 255, 0.15);
-  border-radius: 1rem;
-  color: white;
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
-  outline: none;
-  touch-action: manipulation;
-}
-
-textarea::placeholder, input::placeholder {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-textarea:focus, input:focus {
-  border-color: rgba(138, 43, 226, 0.6);
-  background: rgba(255, 255, 255, 0.12);
-  box-shadow: 
-    0 0 20px rgba(138, 43, 226, 0.3),
-    inset 0 1px 3px rgba(0, 0, 0, 0.2);
-  transform: scale(1.01);
-}
-
-textarea {
-  resize: vertical;
-  min-height: 120px;
-}
-
-/* =========================
    Touch-Friendly Utilities
 ========================= */
 .touch-target {
@@ -318,8 +282,10 @@ textarea {
   cursor: pointer;
 }
 
-/* Prevent text selection on interactive elements */
-button, .glass-btn, .glass-card {
+.btn-row { display:flex; flex-wrap:wrap; gap: 1rem; }
+.btn-stack > * + * { margin-top: 1rem; }
+
+button, .glass-btn {
   -webkit-user-select: none;
   user-select: none;
   -webkit-touch-callout: none;
@@ -335,6 +301,8 @@ button, .glass-btn, .glass-card {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+.w-full { width: 100%; }
 
 .flex { display: flex; }
 .flex-col { flex-direction: column; }
@@ -400,10 +368,8 @@ button, .glass-btn, .glass-card {
 }
 
 /* =========================
-   Homepage Spacing & Layout Overhaul
+   Homepage Spacing & Layout
 ========================= */
-
-/* Force proper vertical centering for homepage */
 .min-h-screen {
   display: flex !important;
   align-items: center !important;
@@ -411,7 +377,6 @@ button, .glass-btn, .glass-card {
   padding: 2rem 1rem !important;
 }
 
-/* Main content container - ensure it's centered */
 .text-center.space-y-8.animate-fade-in {
   width: 100%;
   max-width: 600px;
@@ -423,12 +388,10 @@ button, .glass-btn, .glass-card {
   gap: 3rem;
 }
 
-/* Header section styling */
 .space-y-4:first-child {
   margin-bottom: 0 !important;
 }
 
-/* Welcome Header - Larger and more prominent */
 h1.animate-bounce-slow {
   font-size: 4.5rem !important;
   letter-spacing: 4px;
@@ -437,14 +400,12 @@ h1.animate-bounce-slow {
   line-height: 1.1;
 }
 
-/* Subtitle - Better positioning */
 p.text-xl.text-purple-200 {
   font-size: 1.4rem !important;
   margin-top: 0.5rem;
   opacity: 0.95;
 }
 
-/* Button container - Reset default spacing */
 .space-y-4.max-w-md {
   display: flex;
   flex-direction: column;
@@ -455,14 +416,12 @@ p.text-xl.text-purple-200 {
   margin: 0 !important;
 }
 
-/* Override any conflicting spacing */
 .space-y-4 > *,
 .space-y-8 > * {
   margin-top: 0 !important;
   margin-bottom: 0 !important;
 }
 
-/* Button styling - Make them prominent */
 button.w-full.bg-gradient-to-r {
   padding: 1.8rem 2.5rem !important;
   font-size: 1.25rem !important;
@@ -477,21 +436,18 @@ button.w-full.bg-gradient-to-r {
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Icon sizing in buttons */
 button.w-full.bg-gradient-to-r svg {
   width: 30px !important;
   height: 30px !important;
   flex-shrink: 0;
 }
 
-/* Button text styling */
 button.w-full.bg-gradient-to-r span {
   font-size: 1.25rem !important;
   font-weight: 600 !important;
   white-space: nowrap;
 }
 
-/* Enhanced hover effects */
 button.w-full.bg-gradient-to-r:hover {
   transform: translateY(-6px) scale(1.03) !important;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4) !important;
@@ -522,7 +478,6 @@ button.w-full.bg-gradient-to-r:active {
   h2 { font-size: 2rem !important; }
   h3 { font-size: 1.5rem !important; }
   
-  /* Homepage mobile adjustments */
   h1.animate-bounce-slow {
     font-size: 3.2rem !important;
     letter-spacing: 2px;
@@ -571,7 +526,6 @@ button.w-full.bg-gradient-to-r:active {
   
   h2 { font-size: 1.75rem !important; }
   
-  /* Small mobile homepage adjustments */
   h1.animate-bounce-slow {
     font-size: 2.5rem !important;
     letter-spacing: 1px;
@@ -609,7 +563,6 @@ button.w-full.bg-gradient-to-r:active {
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
-  /* Tablet optimization */
   h1.animate-bounce-slow {
     font-size: 4rem !important;
   }
@@ -628,9 +581,8 @@ button.w-full.bg-gradient-to-r:active {
   -moz-osx-font-smoothing: grayscale;
 }
 
-button, .glass-btn, .glass-card {
+button, .glass-btn {
   will-change: transform;
-  transform: translateZ(0);
   backface-visibility: hidden;
 }
 
@@ -647,7 +599,6 @@ button, .glass-btn, .glass-card {
   }
 }
 
-/* Focus visible for keyboard navigation */
 button:focus-visible,
 .glass-btn:focus-visible {
   outline: 3px solid rgba(138, 43, 226, 0.6);
@@ -678,4 +629,39 @@ button:focus-visible,
       0 0 30px rgba(138, 43, 226, 0.5),
       0 0 40px rgba(138, 43, 226, 0.3);
   }
+}
+
+/* =========================
+   React Component Overrides
+========================= */
+.fixed {
+  position: fixed !important;
+}
+
+.bottom-8 {
+  bottom: 2rem !important;
+}
+
+.top-6 {
+  top: 1.5rem !important;
+}
+
+.right-6 {
+  right: 1.5rem !important;
+}
+
+.left-1\/2 {
+  left: 50% !important;
+}
+
+.-translate-x-1\/2 {
+  transform: translateX(-50%) !important;
+}
+
+.z-50 {
+  z-index: 50;
+}
+
+.z-9999 {
+  z-index: 9999;
 }
